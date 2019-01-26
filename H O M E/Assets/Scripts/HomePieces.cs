@@ -4,29 +4,47 @@ using UnityEngine;
 
 public class HomePieces : MonoBehaviour
 {
+    public Shape shape = Shape.round;
+    public float attractDistance = 1f;
+    public float snapDistance = 0.25f;
     public bool Occupied;
+    
+    private CircleCollider2D col;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        col = GetComponent<CircleCollider2D>();
+        col.radius = attractDistance;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    void OnTriggerStay2D(Collider2D col)
     {
-        
+        float magnitude = ((Vector2)col.transform.position - (Vector2)transform.position).magnitude;
+        if (magnitude < snapDistance)
+        {
+            if (col.GetComponent<Player>())
+            {
+                col.GetComponent<Player>().SnugFit(this);
+            }
+        }
+        else if (magnitude < attractDistance)
+        {
+            if (col.GetComponent<Player>())
+            {
+                col.GetComponent<Player>().Attract(this, magnitude/attractDistance);
+            }
+        }
     }
-
+    
     void DriftSlowly()
     {
         //random direction drift slowly
     }
-
+    
     void Spawn()
     {
-
+        
     }
-
-
 }
+
+
