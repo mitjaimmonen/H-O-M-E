@@ -77,11 +77,11 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, speed);
     }
 
-    public void SnugFit(Hole hole)
+    public void SnugFit(HomePieces homePieces)
     {
-        if (hole.shape == shape)
+        if (homePieces.shape == shape)
         {
-            transform.position = new Vector3(hole.transform.position.x, hole.transform.position.y, transform.position.z);
+            transform.position = new Vector3(homePieces.transform.position.x, homePieces.transform.position.y, transform.position.z);
             velModifier = Vector2.zero;
             rb.velocity = Vector2.zero;
             rb.isKinematic = true;
@@ -89,12 +89,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Attract(Hole hole, float distance01)
+    public void Attract(HomePieces homePieces, float distance01)
     {
-        Vector2 dir = (Vector2)hole.transform.position - (Vector2)transform.position;
+        Vector2 dir = (Vector2)homePieces.transform.position - (Vector2)transform.position;
         dir.Normalize();
 
-        if (hole.shape == shape)
+        if (homePieces.shape == shape)
         {
             rb.AddForce(dir*attractForce * Time.deltaTime * (1f-distance01));
         }

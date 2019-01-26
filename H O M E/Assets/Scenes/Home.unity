@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 0
-  attractDistance: 5
+  attractDistance: 3
   snapDistance: 0.05
 --- !u!1 &170076733
 GameObject:
