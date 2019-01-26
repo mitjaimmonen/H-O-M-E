@@ -7,7 +7,8 @@ public class HomePieces : MonoBehaviour
     public Shape shape = Shape.round;
     public float attractDistance = 1f;
     public float snapDistance = 0.25f;
-
+    public bool Occupied;
+    
     private CircleCollider2D col;
 
     void Awake()
@@ -34,4 +35,16 @@ public class HomePieces : MonoBehaviour
             }
         }
     }
+    
+    void DriftSlowly()
+    {
+        //random direction drift slowly
+    }
+    
+    void Spawn()
+    {
+        
+    }
 }
+
+
