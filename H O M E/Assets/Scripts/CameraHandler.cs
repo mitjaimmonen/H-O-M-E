@@ -34,4 +34,29 @@ public class CameraHandler : MonoBehaviour
     {
         transform.position = Vector3.Lerp(transform.position, new Vector3(lookAtPos.x, lookAtPos.y, transform.position.z), Time.deltaTime *5f);
     }
+
+    public void TransformToRightEdge()
+    {
+       
+        transform.position = new Vector3(transform.position.x + 87, transform.position.y, transform.position.z);
+       
+    }
+
+    public void TransformToLeftEdge()
+    {
+        transform.position = new Vector3(transform.position.x - 87, transform.position.y, transform.position.z);
+
+    }
+
+    public void TransformToUpEdge()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y + 87, transform.position.z);
+
+    }
+
+    public void TransformToDownEdge()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y - 87, transform.position.z);
+
+    }
 }

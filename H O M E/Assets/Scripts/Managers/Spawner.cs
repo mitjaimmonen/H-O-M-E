@@ -21,9 +21,9 @@ public class Spawner : MonoBehaviour
     public float minDistFromPath;
 
 
-    List<Vector2> points = new List<Vector2>();
-    List<GameObject> homes = new List<GameObject>();
-    List<GameObject> pieces = new List<GameObject>();
+    public List<Vector2> points = new List<Vector2>();
+    public List<GameObject> homes = new List<GameObject>();
+    public List<ShapePieces> pieces = new List<ShapePieces>();
 
 
     // Start is called before the first frame update
@@ -45,9 +45,10 @@ public class Spawner : MonoBehaviour
         int shapeTypes = System.Enum.GetNames(typeof(Shape)).Length;
         int playerType = Random.Range(0, shapeTypes);
         GameObject playerPiece = Instantiate(piecePrefab);
-        playerPiece.GetComponent<ShapePieces>().Instantiate((Shape)playerType, points[0]);
-        playerPiece.GetComponent<ShapePieces>().AllowControl = true;
-        pieces.Add(playerPiece);
+        ShapePieces shapePiece = playerPiece.GetComponent<ShapePieces>();
+        shapePiece.Instantiate((Shape)playerType, points[0]);
+        shapePiece.AllowControl = true;
+        pieces.Add(shapePiece);
 
 
         GameObject homeToSpawn = Instantiate(homePrefab);
@@ -60,9 +61,10 @@ public class Spawner : MonoBehaviour
         {
 
             GameObject pieceToSpawn = Instantiate(piecePrefab);
-            pieceToSpawn.GetComponent<ShapePieces>().Instantiate((Shape)i, points[pointsCounter]);
+            shapePiece = pieceToSpawn.GetComponent<ShapePieces>();
+            shapePiece.Instantiate((Shape)i, points[pointsCounter]);
             pointsCounter++;
-            pieces.Add(pieceToSpawn);
+            pieces.Add(shapePiece);
 
             int homesToSpawn = Random.Range(minHomesPerType, maxHomesPerType);
 

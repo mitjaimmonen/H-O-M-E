@@ -30,8 +30,10 @@ public class Player : MonoBehaviour
     private List<ShapePieces> shapes = new List<ShapePieces>();
     public List<ShapePieces> ShapePieces
     {
-        get{
-            //REPLACE WITH GAMEMASTER GETTER WHICH KNOWS ALL SHAPE PIECES
+        get
+        {
+            shapes = GameMaster.Instance.ListOfPieces();
+
             return shapes;
         }
     }
@@ -73,7 +75,7 @@ public class Player : MonoBehaviour
     private void SetMasterPieceVisuals(ShapePieces currentPiece, ShapePieces newPiece)
     {
         masterPiece = newPiece;
-        
+
         if (currentPiece != null)
         {
             currentPiece.IsMaster = false;
@@ -85,12 +87,12 @@ public class Player : MonoBehaviour
     void Awake()
     {
         //REPLACE WITH GAMEMASTER GETTER WHICH KNOWS ALL SHAPE PIECES
-        GameObject[] temp = GameObject.FindGameObjectsWithTag("ShapePiece");
-        List<ShapePieces> pieces = new List<ShapePieces>();
-        foreach(var piece in temp)
-        {
-            shapes.Add(piece.GetComponent<ShapePieces>());
-        }
+        //GameObject[] temp = GameObject.FindGameObjectsWithTag("ShapePiece");
+        //List<ShapePieces> pieces = new List<ShapePieces>();
+        //foreach(var piece in temp)
+        //{
+        //    shapes.Add(piece.GetComponent<ShapePieces>());
+        //}
         UpdateActivePieces();
     }
 
@@ -136,7 +138,7 @@ public class Player : MonoBehaviour
 
     void ApplyVelocity()
     {
-        for(int i = 0; i < ShapePieces.Count; i++)
+        for (int i = 0; i < ShapePieces.Count; i++)
         {
             if (ShapePieces[i].AllowControl)
             {
@@ -150,6 +152,42 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void TransformToRightEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x + 87, shape.transform.position.y, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToRightEdge();
+    }
+
+    public void TransformToLeftEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x - 87, shape.transform.position.y, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToLeftEdge();
+    }
+
+    public void TransformToUpEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y + 87, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToUpEdge();
+    }
+
+    public void TransformToDownEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y - 87, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToDownEdge();
     }
 
 

@@ -45,6 +45,7 @@ public class ShapePieces : MonoBehaviour
         get { return allowControl; }
         set
         {
+            Debug.Log("player is " + player);
             allowControl = value;
             if (player)
                 player.UpdateActivePieces();
@@ -78,6 +79,7 @@ public class ShapePieces : MonoBehaviour
     void Update()
     {
         UpdateShapes();
+        checkForBoundaries();
         if (oldShape != shape)
         {
             SetShapeData();
@@ -155,6 +157,18 @@ public class ShapePieces : MonoBehaviour
     void UpdateMaterials()
     {
         GetComponentInChildren<SkinnedMeshRenderer>().material = IsMaster ? masterMat : plebMat;
+    }
+
+    public void checkForBoundaries()
+    {
+        if (transform.position.x <= -5)
+            player.TransformToRightEdge();
+        if (transform.position.x >= 85)
+            player.TransformToLeftEdge();
+        if (transform.position.y <= -5)
+            player.TransformToUpEdge();
+        if (transform.position.y >= 85)
+            player.TransformToDownEdge();
     }
 
     public void Move(Vector2 velModifier, bool accelerate)

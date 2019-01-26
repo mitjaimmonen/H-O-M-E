@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour
 {
-    Camera mainCamera;
+    public CameraHandler mainCamera;
     Spawner spawner;
     List<HomePieces> HomePieces = new List<HomePieces>();
 
@@ -17,13 +17,24 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public List<ShapePieces> ListOfPieces()
+    {
+        Debug.Log("got here");
+        return spawner.pieces;
+    }
+
+    private void Awake()
     {
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
         spawner = GetComponent<Spawner>();
         spawner.PoolActors();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+     
     }
 
     // Update is called once per frame
