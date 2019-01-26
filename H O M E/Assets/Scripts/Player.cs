@@ -6,12 +6,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 5f;
-    public float acceleration = 5f;
-    public float deacceleration = 2f;
 
     private Vector2 velModifier;
     private bool moveInput;
 
+    private ShapePieces masterPiece;
+    public ShapePieces MasterPiece
+    {
+        get { return masterPiece; }
+        set
+        {
+            SetMasterPieceVisuals(masterPiece, value);
+        }
+    }
+    private List<ShapePieces> activeShapes = new List<ShapePieces>();
+    public List<ShapePieces> ActiveShapePieces
+    {
+        get
+        {
+            return activeShapes;
+        }
+    }
     private List<ShapePieces> shapes = new List<ShapePieces>();
     public List<ShapePieces> ShapePieces
     {
@@ -21,15 +36,62 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Start()
+    public void UpdateActivePieces()
     {
-            //REPLACE WITH GAMEMASTER GETTER WHICH KNOWS ALL SHAPE PIECES
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("ShapePiece");
-            List<ShapePieces> pieces = new List<ShapePieces>();
-            foreach(var piece in temp)
+        activeShapes.Clear();
+        for (int i = 0; i < ShapePieces.Count; i++)
+        {
+            if (ShapePieces[i].AllowControl)
             {
-                shapes.Add(piece.GetComponent<ShapePieces>());
+                activeShapes.Add(ShapePieces[i]);
+                if (MasterPiece == null)
+                    MasterPiece = ShapePieces[i];
             }
+        }
+    }
+
+    private void SwitchMasterPiece()
+    {
+        if (ActiveShapePieces.Count > 1)
+        {
+            if (MasterPiece == null)
+            {
+                MasterPiece = ActiveShapePieces[0];
+            }
+            else
+            {
+                int curIndex = ActiveShapePieces.IndexOf(MasterPiece);
+                curIndex++;
+                if (curIndex < ActiveShapePieces.Count)
+                    MasterPiece = ActiveShapePieces[curIndex];
+                else
+                    MasterPiece = ActiveShapePieces[0];
+            }
+        }
+    }
+
+    private void SetMasterPieceVisuals(ShapePieces currentPiece, ShapePieces newPiece)
+    {
+        masterPiece = newPiece;
+        
+        if (currentPiece != null)
+        {
+            currentPiece.IsMaster = false;
+        }
+        newPiece.IsMaster = true;
+
+    }
+
+    void Awake()
+    {
+        //REPLACE WITH GAMEMASTER GETTER WHICH KNOWS ALL SHAPE PIECES
+        GameObject[] temp = GameObject.FindGameObjectsWithTag("ShapePiece");
+        List<ShapePieces> pieces = new List<ShapePieces>();
+        foreach(var piece in temp)
+        {
+            shapes.Add(piece.GetComponent<ShapePieces>());
+        }
+        UpdateActivePieces();
     }
 
     // Update is called once per frame
@@ -64,22 +126,28 @@ public class Player : MonoBehaviour
         {
             velModifier.y = 0;
         }
+
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            SwitchMasterPiece();
+        }
     }
 
     void ApplyVelocity()
     {
         for(int i = 0; i < ShapePieces.Count; i++)
         {
-            if (ShapePieces[i].allowControl)
+            if (ShapePieces[i].AllowControl)
             {
-                ShapePieces[i].rb.AddForce(-ShapePieces[i].rb.velocity * deacceleration);
+                //Always apply deacceleration
+                ShapePieces[i].Move(-ShapePieces[i].rb.velocity, false);
 
                 if (moveInput)
                 {
-                    ShapePieces[i].rb.AddForce(velModifier * acceleration);
+                    //Acceleration when there is input
+                    ShapePieces[i].Move(velModifier, true);
                 }
-
-                ShapePieces[i].rb.velocity = Vector2.ClampMagnitude(ShapePieces[i].rb.velocity, speed);
             }
         }
     }

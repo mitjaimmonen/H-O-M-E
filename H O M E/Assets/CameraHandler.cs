@@ -5,25 +5,27 @@ using UnityEngine;
 public class CameraHandler : MonoBehaviour
 {
     private Player player;
-    private Vector2 lookAtPos;
+    private Vector2 lookAtPos = Vector2.zero;
     // Start is called before the first frame update
     void Start()
     {
+        lookAtPos = Vector2.zero;
         var temp = GameObject.FindGameObjectWithTag("Player");
         player = temp.GetComponent<Player>();
     }
 
     void Update()
     {
+        if (player.ShapePieces == null || player.ActiveShapePieces.Count < 1)
+            return;
+
         lookAtPos = Vector2.zero;
         int index = 0;
-        for(int i = 0; i < player.ShapePieces.Count; i++)
+        for(int i = 0; i < player.ActiveShapePieces.Count; i++)
         {
-            if (player.ShapePieces[i].allowControl)
-            {
-                lookAtPos += (Vector2)player.ShapePieces[i].transform.position;
-                index++;
-            }
+            lookAtPos += (Vector2)player.ActiveShapePieces[i].transform.position;
+            Debug.Log(lookAtPos);
+            index++;
         }
         lookAtPos /= index;
     }
