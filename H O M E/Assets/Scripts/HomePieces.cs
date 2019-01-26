@@ -6,6 +6,7 @@ public class HomePieces : MonoBehaviour
 {
     public Shape shape = Shape.Circle;
     public float attractDistance = 1f;
+    public float attractForce = 1f;
     public float snapDistance = 0.25f;
     public float driftSpeed;
     public bool Occupied;
@@ -13,10 +14,9 @@ public class HomePieces : MonoBehaviour
     private float size = 1f;
     private CircleCollider2D col;
 
-    public void Instantiate(Shape in_shape, float in_size, Vector2 position)
+    public void Instantiate(Shape in_shape, Vector2 position)
     {
         col = GetComponent<CircleCollider2D>();
-        size = in_size;
         shape = in_shape;
 
         transform.localScale = new Vector3(size,size,size);
@@ -56,8 +56,7 @@ public class HomePieces : MonoBehaviour
             }
             else if (magnitude < attractDistance)
             {
-                piece.Attract(this, magnitude/attractDistance);
-                
+                piece.GetAttracted(this, magnitude/attractDistance * attractForce);
             }
         }
     }

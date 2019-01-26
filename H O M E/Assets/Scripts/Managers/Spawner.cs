@@ -25,6 +25,7 @@ public class Spawner : MonoBehaviour
     List<GameObject> homes = new List<GameObject>();
     List<GameObject> pieces = new List<GameObject>();
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,13 +45,13 @@ public class Spawner : MonoBehaviour
         int shapeTypes = System.Enum.GetNames(typeof(Shape)).Length;
         int playerType = Random.Range(0, shapeTypes);
         GameObject playerPiece = Instantiate(piecePrefab);
-        playerPiece.GetComponent<ShapePieces>().Instantiate((Shape)playerType, 1, points[0]);
-        playerPiece.GetComponent<ShapePieces>().allowControl = true;
+        playerPiece.GetComponent<ShapePieces>().Instantiate((Shape)playerType, points[0]);
+        playerPiece.GetComponent<ShapePieces>().AllowControl = true;
         pieces.Add(playerPiece);
 
 
         GameObject homeToSpawn = Instantiate(homePrefab);
-        homeToSpawn.GetComponent<HomePieces>().Instantiate((Shape)playerType, 1, points[pointsCounter]);
+        homeToSpawn.GetComponent<HomePieces>().Instantiate((Shape)playerType, points[pointsCounter]);
         homes.Add(homeToSpawn);
         pointsCounter++;
 
@@ -59,16 +60,16 @@ public class Spawner : MonoBehaviour
         {
 
             GameObject pieceToSpawn = Instantiate(piecePrefab);
-            pieceToSpawn.GetComponent<ShapePieces>().Instantiate((Shape)i, 1, points[pointsCounter]);
+            pieceToSpawn.GetComponent<ShapePieces>().Instantiate((Shape)i, points[pointsCounter]);
             pointsCounter++;
-            homes.Add(pieceToSpawn);
+            pieces.Add(pieceToSpawn);
 
             int homesToSpawn = Random.Range(minHomesPerType, maxHomesPerType);
 
             for (int j = 0; j < homesToSpawn; j++)
             {
                 homeToSpawn = Instantiate(homePrefab);
-                homeToSpawn.GetComponent<HomePieces>().Instantiate((Shape)i, 1, points[pointsCounter]);
+                homeToSpawn.GetComponent<HomePieces>().Instantiate((Shape)i, points[pointsCounter]);
                 homes.Add(homeToSpawn);
                 pointsCounter++;
             }
