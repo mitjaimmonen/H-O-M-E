@@ -41,6 +41,7 @@ public static class PoissonDiscSampling
             }
             return points;        
     }
+
     static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius, List<Vector2>points, int[,] grid)
     {
         if (candidate.x >=0 && candidate.x < sampleRegionSize.x && candidate.y >=0 && candidate.y < sampleRegionSize.y)
