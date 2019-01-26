@@ -7,6 +7,7 @@ public class HomePieces : MonoBehaviour
     public Shape shape = Shape.Circle;
     public float attractDistance = 1f;
     public float snapDistance = 0.25f;
+    public float driftSpeed;
     public bool Occupied;
 
     private float size = 1f;
