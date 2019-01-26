@@ -2,39 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Shape
-{
-    round,
-    triangle,
-    square,
-    pentagon,
-    hexagon
-}
 
 public class Player : MonoBehaviour
 {
-    public Shape shape = Shape.round;
     public float speed = 5f;
     public float acceleration = 5f;
     public float deacceleration = 2f;
-    public float attractForce = 5f;
 
-    private bool allowControl = true;
     private Vector2 velModifier;
     private bool moveInput;
-    private Rigidbody2D rb;
 
-    // Start is called before the first frame update
-    void Awake()
+    private List<ShapePieces> shapes = new List<ShapePieces>();
+    public List<ShapePieces> ShapePieces
     {
-        rb = GetComponent<Rigidbody2D>();
+        get{
+            //REPLACE WITH GAMEMASTER GETTER WHICH KNOWS ALL SHAPE PIECES
+            return shapes;
+        }
+    }
+
+    void Start()
+    {
+            //REPLACE WITH GAMEMASTER GETTER WHICH KNOWS ALL SHAPE PIECES
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("ShapePiece");
+            List<ShapePieces> pieces = new List<ShapePieces>();
+            foreach(var piece in temp)
+            {
+                shapes.Add(piece.GetComponent<ShapePieces>());
+            }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (allowControl)
-            HandleInput();
+        HandleInput();
     }
 
     void FixedUpdate()
@@ -67,37 +68,21 @@ public class Player : MonoBehaviour
 
     void ApplyVelocity()
     {
-        rb.AddForce(-rb.velocity * deacceleration);
-
-        if (moveInput)
+        for(int i = 0; i < ShapePieces.Count; i++)
         {
-            rb.AddForce(velModifier * acceleration);
-        }
+            if (ShapePieces[i].allowControl)
+            {
+                ShapePieces[i].rb.AddForce(-ShapePieces[i].rb.velocity * deacceleration);
 
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, speed);
-    }
+                if (moveInput)
+                {
+                    ShapePieces[i].rb.AddForce(velModifier * acceleration);
+                }
 
-    public void SnugFit(HomePieces homePieces)
-    {
-        if (homePieces.shape == shape)
-        {
-            transform.position = new Vector3(homePieces.transform.position.x, homePieces.transform.position.y, transform.position.z);
-            velModifier = Vector2.zero;
-            rb.velocity = Vector2.zero;
-            rb.isKinematic = true;
-            allowControl = false;
+                ShapePieces[i].rb.velocity = Vector2.ClampMagnitude(ShapePieces[i].rb.velocity, speed);
+            }
         }
     }
 
-    public void Attract(HomePieces homePieces, float distance01)
-    {
-        Vector2 dir = (Vector2)homePieces.transform.position - (Vector2)transform.position;
-        dir.Normalize();
-
-        if (homePieces.shape == shape)
-        {
-            rb.AddForce(dir*attractForce * Time.deltaTime * (1f-distance01));
-        }
-    }
 
 }
