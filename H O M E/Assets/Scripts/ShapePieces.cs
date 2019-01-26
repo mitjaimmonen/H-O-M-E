@@ -46,7 +46,8 @@ public class ShapePieces : MonoBehaviour
         set
         {
             allowControl = value;
-            player.UpdateActivePieces();
+            if (player)
+                player.UpdateActivePieces();
         }
     }
     public Rigidbody2D rb;
@@ -117,7 +118,11 @@ public class ShapePieces : MonoBehaviour
     void UpdateShapes()
     {
         if (shapeData == null)
+        {
+            Debug.LogWarning("ShapeData is null");
             return;
+        }
+        Debug.Log("Updating shapes");
             
         if (shape != Shape.Square && meshRenderer.GetBlendShapeWeight((int)shape) != 100f)
         {
