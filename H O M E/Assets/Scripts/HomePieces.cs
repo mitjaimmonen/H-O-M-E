@@ -4,35 +4,60 @@ using UnityEngine;
 
 public class HomePieces : MonoBehaviour
 {
-    public Shape shape = Shape.round;
+    public Shape shape = Shape.Circle;
     public float attractDistance = 1f;
     public float snapDistance = 0.25f;
     public float driftSpeed;
     public bool Occupied;
-    
+
+    private float size = 1f;
     private CircleCollider2D col;
 
-    void Awake()
+    public void InstantiateShapePiece(Shape in_shape, float in_size, Vector2 position)
     {
         col = GetComponent<CircleCollider2D>();
-        col.radius = attractDistance;
+        size = in_size;
+        shape = in_shape;
+
+        transform.localScale = new Vector3(size,size,size);
+        transform.position = new Vector3(position.x,position.y, 2f);
+
+        SetShapeVisual();
     }
-    
-    void OnTriggerStay2D(Collider2D col)
+
+    void SetShapeVisual()
     {
-        float magnitude = ((Vector2)col.transform.position - (Vector2)transform.position).magnitude;
-        if (magnitude < snapDistance)
+        foreach(var item in GetComponentsInChildren<Transform>(true))
         {
-            if (col.GetComponent<Player>())
+            if (item.gameObject.name == shape.ToString())
             {
-                col.GetComponent<Player>().SnugFit(this);
+                item.gameObject.SetActive(true);
+            }
+            else if (item.gameObject != gameObject)
+            {
+                item.gameObject.SetActive(false);
             }
         }
-        else if (magnitude < attractDistance)
+    }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        
+        if (Occupied)
+            return;
+        
+        ShapePieces piece = col.GetComponent<ShapePieces>();
+        if (piece && Mathf.Approximately(piece.size, size))
         {
-            if (col.GetComponent<Player>())
+            float magnitude = ((Vector2)col.transform.position - (Vector2)transform.position).magnitude;
+            if (magnitude < snapDistance)
             {
-                col.GetComponent<Player>().Attract(this, magnitude/attractDistance);
+                piece.SnugFit(this);
+            }
+            else if (magnitude < attractDistance)
+            {
+                piece.Attract(this, magnitude/attractDistance);
+                
             }
         }
     }
