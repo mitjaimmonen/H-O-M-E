@@ -7,6 +7,7 @@ public class HomePieces : MonoBehaviour
     public Shape shape = Shape.round;
     public float attractDistance = 1f;
     public float snapDistance = 0.25f;
+    public float driftSpeed;
     public bool Occupied;
     
     private CircleCollider2D col;
