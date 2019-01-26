@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 5f;
-
     private Vector2 velModifier;
     private bool moveInput;
 
@@ -16,7 +14,7 @@ public class Player : MonoBehaviour
         get { return masterPiece; }
         set
         {
-            SetMasterPieceVisuals(masterPiece, value);
+            SetMasterPiece(masterPiece, value);
         }
     }
     private List<ShapePieces> activeShapes = new List<ShapePieces>();
@@ -46,7 +44,7 @@ public class Player : MonoBehaviour
             if (ShapePieces[i].AllowControl)
             {
                 activeShapes.Add(ShapePieces[i]);
-                if (MasterPiece == null)
+                if (MasterPiece == null || !MasterPiece.AllowControl)
                     MasterPiece = ShapePieces[i];
             }
         }
@@ -56,7 +54,7 @@ public class Player : MonoBehaviour
     {
         if (ActiveShapePieces.Count > 1)
         {
-            if (MasterPiece == null)
+            if (MasterPiece == null || !MasterPiece.AllowControl)
             {
                 MasterPiece = ActiveShapePieces[0];
             }
@@ -72,11 +70,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetMasterPieceVisuals(ShapePieces currentPiece, ShapePieces newPiece)
+    private void SetMasterPiece(ShapePieces currentPiece, ShapePieces newPiece)
     {
         masterPiece = newPiece;
 
-        if (currentPiece != null)
+        if (currentPiece != null && currentPiece.IsMaster)
         {
             currentPiece.IsMaster = false;
         }
@@ -151,6 +149,17 @@ public class Player : MonoBehaviour
                     ShapePieces[i].Move(velModifier, true);
                 }
             }
+        }
+    }
+
+    public void PieceSnugFit(ShapePieces piece)
+    {
+        if (masterPiece == null || piece.IsMaster || piece == masterPiece)
+            SwitchMasterPiece();
+
+        if (ActiveShapePieces.Count == 0)
+        {
+            GameMaster.Instance.AssignPiece(2f);
         }
     }
 

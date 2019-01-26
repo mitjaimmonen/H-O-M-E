@@ -63,6 +63,7 @@ public class Spawner : MonoBehaviour
             GameObject pieceToSpawn = Instantiate(piecePrefab);
             shapePiece = pieceToSpawn.GetComponent<ShapePieces>();
             shapePiece.Instantiate((Shape)i, points[pointsCounter]);
+            shapePiece.transform.rotation = Quaternion.LookRotation(Vector3.forward, Random.insideUnitCircle);
             pointsCounter++;
             pieces.Add(shapePiece);
 
@@ -72,6 +73,7 @@ public class Spawner : MonoBehaviour
             {
                 homeToSpawn = Instantiate(homePrefab);
                 homeToSpawn.GetComponent<HomePieces>().Instantiate((Shape)i, points[pointsCounter]);
+                homeToSpawn.transform.rotation = Quaternion.LookRotation(Vector3.forward, Random.insideUnitCircle);
                 homes.Add(homeToSpawn);
                 pointsCounter++;
             }
@@ -79,6 +81,30 @@ public class Spawner : MonoBehaviour
 
         }
 
+    }
+
+    public ShapePieces AssignPiece()
+    {
+        int index = 0;
+        List<ShapePieces> tempList = pieces;
+
+        while (tempList.Count > 0)
+        {
+            index = Random.Range(0, tempList.Count);
+
+            if (tempList[index].snugFit)
+            {
+                tempList.RemoveAt(index);
+            }
+            else
+            {
+                tempList[index].AllowControl = true;
+                return tempList[index];
+            }
+
+        }
+
+        return null;
     }
 
     private void OnDrawGizmos()
