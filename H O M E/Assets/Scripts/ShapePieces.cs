@@ -21,7 +21,7 @@ public class ShapePieces : MonoBehaviour
     private Collider2D col;
 
 
-    public void InstantiateShapePiece(Shape in_shape, float in_size, Vector2 position)
+    public void Instantiate(Shape in_shape, float in_size, Vector2 position)
     {
         col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();

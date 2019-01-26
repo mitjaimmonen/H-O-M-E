@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     Camera mainCamera;
-    HoleManager holeManager;
+    Spawner spawner;
     List<HomePieces> HomePieces = new List<HomePieces>();
 
     private static GameMaster _instance;
@@ -22,6 +22,8 @@ public class GameMaster : MonoBehaviour
     {
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
+        spawner = GetComponent<Spawner>();
+        spawner.PoolActors();
     }
 
     // Update is called once per frame

@@ -13,7 +13,7 @@ public class HomePieces : MonoBehaviour
     private float size = 1f;
     private CircleCollider2D col;
 
-    public void InstantiateShapePiece(Shape in_shape, float in_size, Vector2 position)
+    public void Instantiate(Shape in_shape, float in_size, Vector2 position)
     {
         col = GetComponent<CircleCollider2D>();
         size = in_size;
