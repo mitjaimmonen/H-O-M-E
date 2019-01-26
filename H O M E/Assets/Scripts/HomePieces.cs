@@ -6,6 +6,7 @@ public class HomePieces : MonoBehaviour
 {
     public Shape shape = Shape.Circle;
     public float attractDistance = 1f;
+    public float attractForce = 1f;
     public float snapDistance = 0.25f;
     public float driftSpeed;
     public bool Occupied;
@@ -56,8 +57,7 @@ public class HomePieces : MonoBehaviour
             }
             else if (magnitude < attractDistance)
             {
-                piece.Attract(this, magnitude/attractDistance);
-                
+                piece.GetAttracted(this, magnitude/attractDistance * attractForce);
             }
         }
     }
