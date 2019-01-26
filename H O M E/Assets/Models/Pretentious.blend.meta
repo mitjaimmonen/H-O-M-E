@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 750f5382052624747bcd3a5e91e8248e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: AzureCube
+    100002: AzureLine
+    100004: E
+    100006: GhostWhiteCube
+    100008: GroupTitle
+    100010: H
+    100012: M
+    100014: Me-Arrow
+    100016: O
+    100018: //RootNode
+    100020: SelectArrow
+    100022: Text
+    100024: WhiteCube
+    100026: WhiteSmokecube
+    100028: Commence
+    100030: Cube
+    100032: Succumb
+    400000: AzureCube
+    400002: AzureLine
+    400004: E
+    400006: GhostWhiteCube
+    400008: GroupTitle
+    400010: H
+    400012: M
+    400014: Me-Arrow
+    400016: O
+    400018: //RootNode
+    400020: SelectArrow
+    400022: Text
+    400024: WhiteCube
+    400026: WhiteSmokecube
+    400028: Commence
+    400030: Cube
+    400032: Succumb
+    2100000: Snow
+    2100002: unnamed
+    2100004: White
+    2100006: Azure
+    2100008: GhostWhite
+    2100010: WhiteSmoke
+    2100012: SeaShell
+    2300000: AzureCube
+    2300002: AzureLine
+    2300004: E
+    2300006: GhostWhiteCube
+    2300008: GroupTitle
+    2300010: H
+    2300012: M
+    2300014: O
+    2300016: SelectArrow
+    2300018: Text
+    2300020: WhiteCube
+    2300022: WhiteSmokecube
+    2300024: Commence
+    2300026: Cube
+    2300028: Succumb
+    3300000: AzureCube
+    3300002: AzureLine
+    3300004: E
+    3300006: GhostWhiteCube
+    3300008: GroupTitle
+    3300010: H
+    3300012: M
+    3300014: O
+    3300016: SelectArrow
+    3300018: Text
+    3300020: WhiteCube
+    3300022: WhiteSmokecube
+    3300024: Commence
+    3300026: Cube
+    3300028: Succumb
+    4300000: SelectArrow
+    4300002: Text
+    4300004: GroupTitle
+    4300006: Me-Arrow
+    4300008: AzureLine
+    4300010: AzureCube
+    4300012: WhiteCube
+    4300014: GhostWhiteCube
+    4300016: WhiteSmokecube
+    4300018: H
+    4300020: O
+    4300022: E
+    4300024: M
+    4300026: Cube
+    4300028: Commence
+    4300030: Succumb
+    6400000: AzureCube
+    6400002: AzureLine
+    6400004: Commence
+    6400006: Cube
+    6400008: E
+    6400010: GhostWhiteCube
+    6400012: GroupTitle
+    6400014: H
+    6400016: M
+    6400018: Me-Arrow
+    6400020: O
+    6400022: SelectArrow
+    6400024: Succumb
+    6400026: WhiteCube
+    6400028: WhiteSmokecube
+    7400000: Default Take
+    9500000: //RootNode
+    13700000: Me-Arrow
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 0
+    preserveHierarchy: 1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 2
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
