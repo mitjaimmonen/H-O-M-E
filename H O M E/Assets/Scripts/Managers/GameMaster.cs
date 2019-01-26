@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     Camera mainCamera;
-    HoleSpawner HoleSpawner;
+    HoleManager holeManager;
     List<HomePieces> HomePieces = new List<HomePieces>();
 
     private static GameMaster _instance;
