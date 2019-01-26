@@ -47,7 +47,7 @@ public class HomePieces : MonoBehaviour
             return;
         
         ShapePieces piece = col.GetComponent<ShapePieces>();
-        if (piece && Mathf.Approximately(piece.size, size))
+        if (piece)
         {
             float magnitude = ((Vector2)col.transform.position - (Vector2)transform.position).magnitude;
             if (magnitude < snapDistance)
