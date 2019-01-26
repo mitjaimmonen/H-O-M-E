@@ -892,8 +892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cef1ef71be546542ba8483d89ff0e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugInstantiate: 1
-  debugControl: 1
+  debugInstantiate: 0
+  debugControl: 0
   shape: 0
   meshRenderer: {fileID: 3786942199391052897}
   shapeDataParent: {fileID: 1695494340332229761}
