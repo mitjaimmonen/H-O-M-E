@@ -14,6 +14,7 @@ public class Splash : MonoBehaviour
     AsyncOperation async;
     void Start()
     {
+        Cursor.visible = false;
         StartCoroutine(LoadLoop());
     }
     

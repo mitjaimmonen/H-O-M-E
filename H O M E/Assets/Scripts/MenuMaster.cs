@@ -49,20 +49,27 @@ public class MenuMaster : MonoBehaviour
             cursorObject.transform.right = -force.normalized;
 
             cursorObject.transform.position += Vector3.ClampMagnitude(Vector3.Lerp(cursorObject.transform.position, v3, Time.deltaTime *5f) - cursorObject.transform.position, 8f*Time.deltaTime);
-        }
 
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("CLick");
-            if (startSelected)
+            if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Clicked Start");
+                Debug.Log("CLick");
+                if (startSelected)
+                {
+                    Debug.Log("Clicked Start");
+                    StartGame();
+                }
+                else if (quitSelected)
+                {
+                    Debug.Log("Quit");
+                    Application.Quit();
+                }
+            }
+            if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Return))
+            {
                 StartGame();
             }
-            else if (quitSelected)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Debug.Log("Quit");
                 Application.Quit();
             }
         }

@@ -79,14 +79,12 @@ public class HomePieces : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        Debug.Log("Triggered");
         if (Occupied)
             return;
         
         ShapePieces piece = col.GetComponentInParent<ShapePieces>();
         if (piece)
         {
-            Debug.Log("Piece!");
             float magnitude = ((Vector2)col.transform.position - (Vector2)transform.position).magnitude;
             if (magnitude < snapDistance && Quaternion.Angle(transform.rotation, piece.transform.rotation) < 10f)
             {
