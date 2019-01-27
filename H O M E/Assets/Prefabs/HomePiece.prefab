@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 4
-  attractDistance: 8
+  attractDistance: 15
   attractForce: 200
   snapDistance: 0.1
   driftSpeed: 0

@@ -76,10 +76,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0a71e5ed4bdd3448a80611b1784d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.9
+  size: 1
   mass: 1
   maxSpeed: 10
-  acceleration: 200
+  acceleration: 300
   deacceleration: 50
 --- !u!1 &1055210349538601465
 GameObject:
@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0a71e5ed4bdd3448a80611b1784d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 1.5
+  size: 1
   mass: 1
   maxSpeed: 7
-  acceleration: 180
+  acceleration: 300
   deacceleration: 50
 --- !u!1 &1393243852865382770
 GameObject:
@@ -236,10 +236,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
-  mass: 0.75
+  mass: 1
   maxSpeed: 5
-  acceleration: 60
-  deacceleration: 10
+  acceleration: 300
+  deacceleration: 50
 --- !u!1 &1695494340332229761
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,8 +357,8 @@ MonoBehaviour:
   size: 1
   mass: 1
   maxSpeed: 6
-  acceleration: 100
-  deacceleration: 10
+  acceleration: 300
+  deacceleration: 50
 --- !u!1 &3253922257669057616
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,10 +432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0a71e5ed4bdd3448a80611b1784d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.7
-  mass: 0.8
+  size: 1
+  mass: 1
   maxSpeed: 10
-  acceleration: 200
+  acceleration: 300
   deacceleration: 50
 --- !u!1 &5096596974757977414
 GameObject:
@@ -507,11 +507,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0a71e5ed4bdd3448a80611b1784d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 2
-  mass: 2
+  size: 1
+  mass: 1
   maxSpeed: 5
-  acceleration: 150
-  deacceleration: 40
+  acceleration: 300
+  deacceleration: 50
 --- !u!1 &6673079443713242825
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,10 +597,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
-  mass: 0.75
+  mass: 1
   maxSpeed: 5
-  acceleration: 80
-  deacceleration: 30
+  acceleration: 300
+  deacceleration: 50
 --- !u!1 &7461777590992628995
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,11 +688,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0a71e5ed4bdd3448a80611b1784d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.9
-  mass: 0.75
+  size: 1
+  mass: 1
   maxSpeed: 5
-  acceleration: 50
-  deacceleration: 10
+  acceleration: 300
+  deacceleration: 50
 --- !u!1 &7950496929674816650
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,9 +842,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 1
-  mass: 2
+  mass: 1
   maxSpeed: 7
-  acceleration: 200
+  acceleration: 300
   deacceleration: 50
 --- !u!1 &9144554550947094566
 GameObject:
@@ -902,6 +902,7 @@ MonoBehaviour:
   plebMat: {fileID: 2100000, guid: 3bebc20da1a46444daf0319c88bd5ddf, type: 2}
   masterMat: {fileID: 2100000, guid: 7e0658df0c6cfd24dad50fb9e6ef9fba, type: 2}
   rb: {fileID: 9144554550947094569}
+  snugFit: 0
 --- !u!50 &9144554550947094569
 Rigidbody2D:
   serializedVersion: 4

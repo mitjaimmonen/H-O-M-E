@@ -18,6 +18,8 @@ public class ShapePieces : MonoBehaviour
 {
     public bool debugInstantiate = false;
     public bool debugControl = false;
+    public bool debugShapeChange = false;
+    public float changeShapeInterval = 45f;
     public Shape shape = Shape.Circle;
     public SkinnedMeshRenderer meshRenderer;
     public GameObject shapeDataParent;
@@ -26,7 +28,7 @@ public class ShapePieces : MonoBehaviour
     public Material plebMat;
     public Material masterMat;
 
-
+    private float intervalTimer;
     private Player player;
 
     private bool isMaster = false;
@@ -61,6 +63,7 @@ public class ShapePieces : MonoBehaviour
 
     void Awake()
     {
+        intervalTimer = Time.time + Random.Range(0f,changeShapeInterval);
         if (!player)
         {
             var temp = GameObject.FindGameObjectWithTag("Player");
@@ -90,6 +93,18 @@ public class ShapePieces : MonoBehaviour
         if (snugFit)
         {
             meshRenderer.material.color = Color.Lerp(meshRenderer.material.color, Color.black, Time.deltaTime);
+        }
+        else
+        {
+            if (intervalTimer+changeShapeInterval < Time.time || debugShapeChange)
+            {
+                if (Random.Range(0f,100f) > 50f || debugShapeChange)
+                {
+                    shape = (Shape)Random.Range(0,System.Enum.GetNames(typeof(Shape)).Length);
+                    intervalTimer = Time.time;
+                    debugShapeChange = false;
+                }
+            }
         }
     }
 
@@ -199,7 +214,7 @@ public class ShapePieces : MonoBehaviour
         if (homePieces.shape == shape)
         {
             DisablePiece();
-            transform.position = new Vector3(homePieces.transform.position.x, homePieces.transform.position.y, transform.position.z);
+            transform.position = new Vector3(homePieces.transform.position.x, homePieces.transform.position.y, 1f);
             transform.rotation = homePieces.transform.rotation;
 
             homePieces.Occupied = true;
