@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     {
         masterPiece = newPiece;
 
-        if (currentPiece != null && currentPiece.IsMaster)
+        if (currentPiece != null)
         {
             currentPiece.IsMaster = false;
         }
@@ -152,6 +152,50 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void TransformToRightEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x + 87, shape.transform.position.y, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToRightEdge();
+    }
+
+    public void TransformToLeftEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x - 87, shape.transform.position.y, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToLeftEdge();
+    }
+
+    public void TransformToUpEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y + 87, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToUpEdge();
+    }
+
+    public void TransformToDownEdge()
+    {
+        foreach (ShapePieces shape in activeShapes)
+        {
+            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y - 87, shape.transform.position.z);
+        }
+        GameMaster.Instance.mainCamera.TransformToDownEdge();
+    }
+
+
+}
+
+        masterPiece = newPiece;
+
+        if (currentPiece != null && currentPiece.IsMaster)
+    }
+
     public void PieceSnugFit(ShapePieces piece)
     {
         if (masterPiece == null || piece.IsMaster || piece == masterPiece)
@@ -199,5 +243,3 @@ public class Player : MonoBehaviour
         GameMaster.Instance.mainCamera.TransformToDownEdge();
     }
 
-
-}
