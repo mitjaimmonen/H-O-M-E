@@ -246,7 +246,7 @@ public class ShapePieces : MonoBehaviour
         if (shapeData == null)
             return;
             
-        rb.AddForce(velModifier * shapeData.acceleration * Time.fixedDeltaTime);
+        rb.AddForce(velModifier * shapeData.acceleration * Time.fixedUnscaledDeltaTime);
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, shapeData.maxSpeed);
 
     }
@@ -254,7 +254,7 @@ public class ShapePieces : MonoBehaviour
     void Deaccelerate()
     {
         if (shapeData)
-            rb.AddForce(-rb.velocity * shapeData.deacceleration * Time.fixedDeltaTime);
+            rb.AddForce(-rb.velocity * shapeData.deacceleration * Time.fixedUnscaledDeltaTime);
 
     }
 
