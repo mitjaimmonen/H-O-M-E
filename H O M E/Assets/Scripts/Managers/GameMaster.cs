@@ -1,11 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
+    public Image FadeOverlay;
+    public Color FadeColor;
+
     public CameraHandler mainCamera;
-    public PhraseManager phraseManager;
+    private PhraseManager phraseManager;
+    public PhraseManager PhraseManager
+    {
+        get
+        {
+            if (!phraseManager)
+            {
+                phraseManager = Camera.main.GetComponentInChildren<PhraseManager>();
+            }
+            return phraseManager;
+        }
+    }
 
     Spawner spawner;
     public Spawner GetSpawner
@@ -44,10 +60,19 @@ public class GameMaster : MonoBehaviour
 
     private void Awake()
     {
+        SceneManager.activeSceneChanged += SceneChanged;
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
         spawner = GetComponent<Spawner>();
         spawner.PoolActors();
+    }
+
+    void SceneChanged(Scene oldScene, Scene newScene)
+    {
+        StartCoroutine(FadeIn());
+        spawner = GetComponent<Spawner>();
+        if (spawner)
+            spawner.PoolActors();
     }
 
     public void AssignPiece(float delay)
@@ -70,6 +95,58 @@ public class GameMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Player.FindablePieces.Count == 0 && Player.ActiveShapePieces.Count == 0)
+        {
+            GameOver();
+        }
+    }
 
+
+    IEnumerator FadeIn()
+    {
+        FadeOverlay.color = Color.black;
+        FadeOverlay.enabled = true;
+        float t = 0;
+        while (t <= 1f)
+        {
+            FadeOverlay.color = Color.Lerp(FadeColor, Color.clear, t);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        FadeOverlay.enabled = false;
+
+        yield break;
+    }
+
+
+    void GameOver()
+    {
+        Debug.Log("Game is Over");
+        StartCoroutine(GameOverLoop());
+    }
+
+    IEnumerator GameOverLoop()
+    {
+        FadeOverlay.color = Color.clear;
+        FadeOverlay.enabled = true;
+        float t = 0;
+
+        //Call first end text.
+        yield return new WaitForSeconds(1f);
+        //Call second/third end text.
+
+        while (t <= 2f)
+        {
+            FadeOverlay.color = Color.Lerp(Color.clear, FadeColor, t/2f);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        //Shows "home"
+        yield return new WaitForSeconds(5f);
+
+        //GOes to credits
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 }

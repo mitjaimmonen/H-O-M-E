@@ -19,6 +19,7 @@ public class ShapePieces : MonoBehaviour
     public bool debugInstantiate = false;
     public bool debugControl = false;
     public bool debugShapeChange = false;
+    public float snapOffDistance = 10f;
     public float changeShapeInterval = 45f;
     public Shape shape = Shape.Circle;
     public SkinnedMeshRenderer meshRenderer;
@@ -56,13 +57,24 @@ public class ShapePieces : MonoBehaviour
     public Rigidbody2D rb;
 
 
-    public bool snugFit;
+    private bool _snugFit;
+    public bool snugFit
+    {
+        get { return _snugFit; }
+        set
+        {
+            _snugFit = value;
+            if (player)
+                player.UpdateFindablePieces();
+        }
+    }
     private Collider2D col;
     private ShapeData shapeData;
     private Shape oldShape;
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         intervalTimer = Time.time + Random.Range(0f,changeShapeInterval);
         if (!player)
         {
@@ -84,7 +96,13 @@ public class ShapePieces : MonoBehaviour
     {
         UpdateShapes();
         if (IsMaster)
+        {
             checkForBoundaries();
+        }
+        else if (AllowControl)
+        {
+            CheckDistanceToMaster();
+        }
         if (oldShape != shape)
         {
             SetShapeData();
@@ -103,9 +121,15 @@ public class ShapePieces : MonoBehaviour
                     shape = (Shape)Random.Range(0,System.Enum.GetNames(typeof(Shape)).Length);
                     intervalTimer = Time.time;
                     debugShapeChange = false;
+                    if (AllowControl)
+                        GameMaster.Instance.PhraseManager.DisplayTooLongPhrase();
                 }
             }
         }
+
+        Deaccelerate();
+
+        
     }
 
     public void Instantiate(Shape in_shape, Vector2 position)
@@ -191,21 +215,29 @@ public class ShapePieces : MonoBehaviour
             player.TransformToDownEdge();
     }
 
-    public void Move(Vector2 velModifier, bool accelerate)
+    public void CheckDistanceToMaster()
+    {
+        if ((transform.position-player.MasterPiece.transform.position).magnitude > snapOffDistance)
+        {
+            AllowControl = false;
+            GameMaster.Instance.PhraseManager.DisplayLoseFriendPhrase();
+        }
+    }
+
+    public void Move(Vector2 velModifier)
     {
         if (shapeData == null)
             return;
             
-        if (accelerate)
-        {
-            rb.AddForce(velModifier * shapeData.acceleration * Time.fixedDeltaTime);
-        }
-        else
-        {
-            rb.AddForce(velModifier * shapeData.deacceleration * Time.fixedDeltaTime);
-        }
-
+        rb.AddForce(velModifier * shapeData.acceleration * Time.fixedDeltaTime);
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, shapeData.maxSpeed);
+
+    }
+
+    void Deaccelerate()
+    {
+        if (shapeData)
+            rb.AddForce(-rb.velocity * shapeData.deacceleration * Time.fixedDeltaTime);
 
     }
 
@@ -220,6 +252,7 @@ public class ShapePieces : MonoBehaviour
             homePieces.Occupied = true;
             snugFit = true;
             player.PieceSnugFit(this);
+            GameMaster.Instance.PhraseManager.DisplayFindHomePhrase();
         }
     }
 
@@ -237,9 +270,16 @@ public class ShapePieces : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (AllowControl && col.gameObject.GetComponent<ShapePieces>() != null)
+        ShapePieces shape = col.gameObject.GetComponent<ShapePieces>();
+        if (AllowControl && shape != null)
         {
-            col.gameObject.GetComponent<ShapePieces>().AllowControl = true;
+            if (!shape.AllowControl)
+            {
+                GameMaster.Instance.PhraseManager.DisplayFindFriendPhrase();
+                shape.AllowControl = true;
+            }
+            
+
         }
     }
 
@@ -269,6 +309,10 @@ public class ShapePieces : MonoBehaviour
         {
             rb.AddForce(dir * Time.deltaTime * force);
             transform.rotation = Quaternion.Slerp(transform.rotation, homePieces.transform.rotation, Time.deltaTime * (1f-magnitude01));
+        }
+        else if (magnitude01 < 0.1f)
+        {
+            GameMaster.Instance.PhraseManager.DisplayWrongHomePhrase();
         }
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
 {
+    public float yOffset;
     private Player player;
     private Vector2 lookAtPos = Vector2.zero;
     // Start is called before the first frame update
@@ -12,6 +13,11 @@ public class CameraHandler : MonoBehaviour
         lookAtPos = Vector2.zero;
         var temp = GameObject.FindGameObjectWithTag("Player");
         player = temp.GetComponent<Player>();
+        if (player && player.MasterPiece)
+        {
+            lookAtPos = player.MasterPiece.transform.position;
+            transform.position = new Vector3(lookAtPos.x, lookAtPos.y + yOffset, transform.position.z);
+        }
     }
 
     void Update()
@@ -23,7 +29,7 @@ public class CameraHandler : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, new Vector3(lookAtPos.x, lookAtPos.y, transform.position.z), Time.deltaTime *5f);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(lookAtPos.x, lookAtPos.y + yOffset, transform.position.z), Time.deltaTime *5f);
     }
 
     public void TransformToRightEdge()

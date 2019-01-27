@@ -25,6 +25,11 @@ public class Player : MonoBehaviour
             return activeShapes;
         }
     }
+    private List<ShapePieces> findablePieces = new List<ShapePieces>();
+    public List<ShapePieces> FindablePieces
+    {
+        get { return findablePieces; }
+    }
     private List<ShapePieces> shapes = new List<ShapePieces>();
     public List<ShapePieces> ShapePieces
     {
@@ -46,6 +51,18 @@ public class Player : MonoBehaviour
                 activeShapes.Add(ShapePieces[i]);
                 if (MasterPiece == null || !MasterPiece.AllowControl)
                     MasterPiece = ShapePieces[i];
+            }
+        }
+    }
+
+    public void UpdateFindablePieces()
+    {
+        findablePieces.Clear();
+        for (int i = 0; i < ShapePieces.Count; i++)
+        {
+            if (ShapePieces[i].snugFit == false)
+            {
+                findablePieces.Add(ShapePieces[i]);
             }
         }
     }
@@ -78,7 +95,10 @@ public class Player : MonoBehaviour
         {
             currentPiece.IsMaster = false;
         }
-        newPiece.IsMaster = true;
+        if (newPiece != null)
+        {
+            newPiece.IsMaster = true;
+        }
 
     }
 
@@ -140,13 +160,9 @@ public class Player : MonoBehaviour
         {
             if (ShapePieces[i].AllowControl)
             {
-                //Always apply deacceleration
-                ShapePieces[i].Move(-ShapePieces[i].rb.velocity, false);
-
                 if (moveInput)
                 {
-                    //Acceleration when there is input
-                    ShapePieces[i].Move(velModifier, true);
+                    ShapePieces[i].Move(velModifier);
                 }
             }
         }
