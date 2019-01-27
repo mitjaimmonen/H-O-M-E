@@ -19,7 +19,6 @@ public class GameMaster : MonoBehaviour
 
     public List<ShapePieces> ListOfPieces()
     {
-        Debug.Log("got here");
         return spawner.pieces;
     }
 
