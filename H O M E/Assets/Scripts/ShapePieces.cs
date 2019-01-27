@@ -222,13 +222,13 @@ public class ShapePieces : MonoBehaviour
 
     public void checkForBoundaries()
     {
-        if (transform.position.x <= -5)
+        if (transform.position.x <= -15)
             player.TransformToRightEdge();
-        if (transform.position.x >= 85)
+        if (transform.position.x >= 95)
             player.TransformToLeftEdge();
-        if (transform.position.y <= -5)
+        if (transform.position.y <= -15)
             player.TransformToUpEdge();
-        if (transform.position.y >= 85)
+        if (transform.position.y >= 95)
             player.TransformToDownEdge();
     }
 

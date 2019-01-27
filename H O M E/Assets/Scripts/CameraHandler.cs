@@ -35,25 +35,29 @@ public class CameraHandler : MonoBehaviour
     public void TransformToRightEdge()
     {
        
-        transform.position = new Vector3(transform.position.x + 87, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + 97f, transform.position.y, transform.position.z);
+        lookAtPos = player.MasterPiece.transform.position;
        
     }
 
     public void TransformToLeftEdge()
     {
-        transform.position = new Vector3(transform.position.x - 87, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x - 97f, transform.position.y, transform.position.z);
+        lookAtPos = player.MasterPiece.transform.position;
 
     }
 
     public void TransformToUpEdge()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y + 87, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y + 97f, transform.position.z);
+        lookAtPos = player.MasterPiece.transform.position;
 
     }
 
     public void TransformToDownEdge()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y - 87, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y - 97f, transform.position.z);
+        lookAtPos = player.MasterPiece.transform.position;
 
     }
 }

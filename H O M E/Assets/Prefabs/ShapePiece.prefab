@@ -904,8 +904,12 @@ MonoBehaviour:
   attractForce: 20
   plebMat: {fileID: 2100000, guid: 3bebc20da1a46444daf0319c88bd5ddf, type: 2}
   masterMat: {fileID: 2100000, guid: 7e0658df0c6cfd24dad50fb9e6ef9fba, type: 2}
+  magnitude: 1
+  sine1M: 0.27
+  sine2M: 0.85
+  sine3M: 0.72
+  startPos: {x: 0, y: 0, z: 0}
   rb: {fileID: 9144554550947094569}
-  snugFit: 0
 --- !u!50 &9144554550947094569
 Rigidbody2D:
   serializedVersion: 4

@@ -176,15 +176,6 @@ public class PhraseManager : MonoBehaviour
         InitializeIndexes();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DisplayEndPhrases();
-        }
-    }
-
     void InitializeIndexes()
     {
         tooLongIndex = new bool[tooLongSprites.Count];

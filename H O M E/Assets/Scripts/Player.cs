@@ -172,7 +172,7 @@ public class Player : MonoBehaviour
     {
         foreach (ShapePieces shape in activeShapes)
         {
-            shape.transform.position = new Vector3(shape.transform.position.x + 87, shape.transform.position.y, shape.transform.position.z);
+            shape.transform.position = new Vector3(shape.transform.position.x + 97f, shape.transform.position.y, shape.transform.position.z);
         }
         GameMaster.Instance.mainCamera.TransformToRightEdge();
     }
@@ -181,7 +181,7 @@ public class Player : MonoBehaviour
     {
         foreach (ShapePieces shape in activeShapes)
         {
-            shape.transform.position = new Vector3(shape.transform.position.x - 87, shape.transform.position.y, shape.transform.position.z);
+            shape.transform.position = new Vector3(shape.transform.position.x - 97f, shape.transform.position.y, shape.transform.position.z);
         }
         GameMaster.Instance.mainCamera.TransformToLeftEdge();
     }
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour
     {
         foreach (ShapePieces shape in activeShapes)
         {
-            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y + 87, shape.transform.position.z);
+            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y + 97f, shape.transform.position.z);
         }
         GameMaster.Instance.mainCamera.TransformToUpEdge();
     }
@@ -199,7 +199,7 @@ public class Player : MonoBehaviour
     {
         foreach (ShapePieces shape in activeShapes)
         {
-            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y - 87, shape.transform.position.z);
+            shape.transform.position = new Vector3(shape.transform.position.x, shape.transform.position.y - 97f, shape.transform.position.z);
         }
         GameMaster.Instance.mainCamera.TransformToDownEdge();
     }
