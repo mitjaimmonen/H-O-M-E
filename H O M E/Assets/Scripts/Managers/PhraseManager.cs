@@ -20,16 +20,17 @@ public class PhraseManager : MonoBehaviour
     int tooLongPhrasesIndex = 0;
     int setTooLongPhrasesIndex
     {
-        get{ return tooLongPhrasesIndex; }
-        set{
+        get { return tooLongPhrasesIndex; }
+        set
+        {
             if (value >= findFriendIndex.Length)
                 tooLongPhrasesIndex = 0;
             else if (value < 0)
-                tooLongPhrasesIndex = findFriendIndex.Length-1;
+                tooLongPhrasesIndex = findFriendIndex.Length - 1;
             else
                 tooLongPhrasesIndex = value;
         }
-    }  
+    }
 
     List<Sprite[]> findHomeSprites = new List<Sprite[]>();
     bool[] findHomeIndex;
@@ -46,16 +47,17 @@ public class PhraseManager : MonoBehaviour
     int findHomePhraseIndex = 0;
     int setFindHomePhraseIndex
     {
-        get{ return findHomePhraseIndex; }
-        set{
+        get { return findHomePhraseIndex; }
+        set
+        {
             if (value >= findFriendIndex.Length)
                 findHomePhraseIndex = 0;
             else if (value < 0)
-                findHomePhraseIndex = findFriendIndex.Length-1;
+                findHomePhraseIndex = findFriendIndex.Length - 1;
             else
                 findHomePhraseIndex = value;
         }
-    }  
+    }
 
     List<Sprite[]> findFriendSprites = new List<Sprite[]>();
     bool[] findFriendIndex;
@@ -67,21 +69,22 @@ public class PhraseManager : MonoBehaviour
     Sprite[] _FindFriendAllAlone;
     Sprite[] _FindFriendIncredible;
     Sprite[] _FindFriendLoveYou;
-    Sprite[] _FindFriendOhLove; 
+    Sprite[] _FindFriendOhLove;
 
     int findFriendPhraseIndex = 0;
     int setFindFriendPhraseIndex
     {
-        get{ return findFriendPhraseIndex; }
-        set{
+        get { return findFriendPhraseIndex; }
+        set
+        {
             if (value >= findFriendIndex.Length)
                 findFriendPhraseIndex = 0;
             else if (value < 0)
-                findFriendPhraseIndex = findFriendIndex.Length-1;
+                findFriendPhraseIndex = findFriendIndex.Length - 1;
             else
                 findFriendPhraseIndex = value;
         }
-    }  
+    }
 
     List<Sprite[]> loseFriendSprites = new List<Sprite[]>();
     bool[] loseFriendIndex;
@@ -96,16 +99,17 @@ public class PhraseManager : MonoBehaviour
     int loseFriendPhraseIndex = 0;
     int setLoseFriendPhraseIndex
     {
-        get{ return loseFriendPhraseIndex; }
-        set{
+        get { return loseFriendPhraseIndex; }
+        set
+        {
             if (value >= findFriendIndex.Length)
                 loseFriendPhraseIndex = 0;
             else if (value < 0)
-                loseFriendPhraseIndex = findFriendIndex.Length-1;
+                loseFriendPhraseIndex = findFriendIndex.Length - 1;
             else
                 loseFriendPhraseIndex = value;
         }
-    }  
+    }
 
     List<Sprite[]> wrongHouseSprites = new List<Sprite[]>();
     bool[] wrongHouseIndex;
@@ -124,18 +128,26 @@ public class PhraseManager : MonoBehaviour
     int wrongHousePhraseIndex = 0;
     int setWrongHousePhraseIndex
     {
-        get{ return wrongHousePhraseIndex; }
-        set{
+        get { return wrongHousePhraseIndex; }
+        set
+        {
             if (value >= findFriendIndex.Length)
                 wrongHousePhraseIndex = 0;
             else if (value < 0)
-                wrongHousePhraseIndex = findFriendIndex.Length-1;
+                wrongHousePhraseIndex = findFriendIndex.Length - 1;
             else
                 wrongHousePhraseIndex = value;
         }
-    }  
+    }
+
+    Sprite[] _EndPhrase1;
+    Sprite[] _EndPhrase2;
+    Sprite[] _EndPhrase3;
+
 
     Image phrase;
+    public Image phrase2;
+    public Image phrase3;
 
 
     float lastPhraseTime;
@@ -151,7 +163,11 @@ public class PhraseManager : MonoBehaviour
         Color c = phrase.color;
         c.a = 0;
         phrase.color = c;
+        phrase2.color = c;
+        phrase3.color = c;
         phrase.enabled = false;
+        phrase2.enabled = false;
+        phrase3.enabled = false;
     }
 
     void Start()
@@ -163,7 +179,10 @@ public class PhraseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DisplayEndPhrases();
+        }
     }
 
     void InitializeIndexes()
@@ -188,7 +207,7 @@ public class PhraseManager : MonoBehaviour
         {
             loseFriendIndex[i] = true;
         }
-        wrongHouseIndex= new bool[wrongHouseSprites.Count];
+        wrongHouseIndex = new bool[wrongHouseSprites.Count];
         for (int i = 0; i < wrongHouseIndex.Length; i++)
         {
             wrongHouseIndex[i] = true;
@@ -197,6 +216,10 @@ public class PhraseManager : MonoBehaviour
 
     void LoadSprites()
     {
+        _EndPhrase1 = Resources.LoadAll<Sprite>("Phrases/End/here you are");
+        _EndPhrase2 = Resources.LoadAll<Sprite>("Phrases/End/found");
+        _EndPhrase3 = Resources.LoadAll<Sprite>("Phrases/End/home-word");
+
         _WrongHouseDance = Resources.LoadAll<Sprite>("Phrases/Wrong house/dance");
         wrongHouseSprites.Add(_WrongHouseDance);
         _WrongHouseDie = Resources.LoadAll<Sprite>("Phrases/Wrong house/die");
@@ -294,6 +317,73 @@ public class PhraseManager : MonoBehaviour
 
     }
 
+    public void DisplayEndPhrases()
+    {
+        StartCoroutine(DoEndPhrases());
+    }
+
+    IEnumerator DoEndPhrases()
+    {
+        showingPhrase = true;
+        StartCoroutine(FlashPhrase(_EndPhrase1));
+        Color c = phrase.color;
+        float elapsedTime = 0.0f;
+        while (elapsedTime < 1f)
+        {
+            Debug.Log("fading in");
+            elapsedTime += Time.deltaTime;
+            c.a = Mathf.Lerp(0, 1f, (elapsedTime / 1f));
+            phrase.color = c;
+            yield return null;
+        }
+       
+        StartCoroutine(FlashPhrase2(_EndPhrase2));        
+        Color c2 = phrase2.color;
+        elapsedTime = 0.0f;
+        while (elapsedTime < 1f)
+        {
+            Debug.Log("fading in");
+            elapsedTime += Time.deltaTime;
+            c2.a = Mathf.Lerp(0, 1f, (elapsedTime / 1f));
+            phrase2.color = c2;
+            yield return null;
+        }
+        StartCoroutine(FlashPhrase3(_EndPhrase3));
+
+        Color c3 = phrase2.color;
+        elapsedTime = 0.0f;
+        while (elapsedTime < 1f)
+        {
+            Debug.Log("fading in");
+            elapsedTime += Time.deltaTime;
+            c3.a = Mathf.Lerp(0, 1f, (elapsedTime / 1f));
+            phrase3.color = c3;
+            yield return null;
+        }
+
+        elapsedTime = 0.0f;
+        while (elapsedTime < 1f)
+        {
+            Debug.Log("fading  out");
+            elapsedTime += Time.deltaTime;
+            c.a = Mathf.Lerp(1, 0f, (elapsedTime / 1f));
+            phrase.color = c;
+            yield return null;
+        }
+        phrase.enabled = false;
+
+        elapsedTime = 0.0f;
+        while (elapsedTime < 1f)
+        {
+            Debug.Log("fading  out");
+            elapsedTime += Time.deltaTime;
+            c2.a = Mathf.Lerp(1, 0f, (elapsedTime / 1f));
+            phrase2.color = c2;
+            yield return null;
+        }
+        phrase2.enabled = false;
+    }
+
     public void DisplayPhrase(Sprite[] phraseSprites)
     {
         if (!phrase.enabled)
@@ -310,7 +400,7 @@ public class PhraseManager : MonoBehaviour
         // int randomPhrase = Random.Range(0, findFriendSprites.Count);
         DisplayPhrase(findFriendSprites[findFriendPhraseIndex]);
         ++setFindFriendPhraseIndex;
-        
+
     }
 
     public void DisplayFindHomePhrase()
@@ -320,7 +410,7 @@ public class PhraseManager : MonoBehaviour
         // int randomPhrase = Random.Range(0, findHomeSprites.Count);
         DisplayPhrase(findHomeSprites[findHomePhraseIndex]);
         ++setFindHomePhraseIndex;
-        
+
     }
 
     public void DisplayTooLongPhrase()
@@ -367,7 +457,45 @@ public class PhraseManager : MonoBehaviour
             phrase.sprite = sprites[index];
             index++;
             if (index >= sprites.Length)
-                index=0;
+                index = 0;
+            yield return new WaitForSeconds(0.2f);
+
+        }
+
+
+    }
+
+    IEnumerator FlashPhrase2(Sprite[] sprites)
+    {
+        phrase2.sprite = sprites[0];
+        phrase2.enabled = true;
+        int index = 0;
+
+        while (phrase2.enabled)
+        {
+            phrase2.sprite = sprites[index];
+            index++;
+            if (index >= sprites.Length)
+                index = 0;
+            yield return new WaitForSeconds(0.2f);
+
+        }
+
+
+    }
+
+    IEnumerator FlashPhrase3(Sprite[] sprites)
+    {
+        phrase3.sprite = sprites[0];
+        phrase3.enabled = true;
+        int index = 0;
+
+        while (phrase3.enabled)
+        {
+            phrase3.sprite = sprites[index];
+            index++;
+            if (index >= sprites.Length)
+                index = 0;
             yield return new WaitForSeconds(0.2f);
 
         }

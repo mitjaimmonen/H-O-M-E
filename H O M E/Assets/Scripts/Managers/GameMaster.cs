@@ -60,20 +60,21 @@ public class GameMaster : MonoBehaviour
 
     private void Awake()
     {
-        SceneManager.activeSceneChanged += SceneChanged;
+        // SceneManager.activeSceneChanged += SceneChanged;
+        StartCoroutine(FadeIn());
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
         spawner = GetComponent<Spawner>();
         spawner.PoolActors();
     }
 
-    void SceneChanged(Scene oldScene, Scene newScene)
-    {
-        StartCoroutine(FadeIn());
-        spawner = GetComponent<Spawner>();
-        if (spawner)
-            spawner.PoolActors();
-    }
+    //void SceneChanged(Scene oldScene, Scene newScene)
+    //{
+    //    StartCoroutine(FadeIn());
+    //    spawner = GetComponent<Spawner>();
+    //    if (spawner)
+    //        spawner.PoolActors();
+    //}
 
     public void AssignPiece(float delay)
     {
