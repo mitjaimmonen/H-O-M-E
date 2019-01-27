@@ -32,6 +32,15 @@ public class ShapePieces : MonoBehaviour
     private float intervalTimer;
     private Player player;
 
+    float sine1;
+    float sine2;
+    float sine3;
+    public float magnitude = 0.34f;
+    public float sine1M = 0.27f;
+    public float sine2M = 0.85f;
+    public float sine3M = 0.72f;
+    public Vector3 startPos;
+
     private bool isMaster = false;
     public bool IsMaster
     {
@@ -89,7 +98,12 @@ public class ShapePieces : MonoBehaviour
         if (debugControl)
         {
             AllowControl = true;
-        }
+        }       
+    }
+
+    private void Start()
+    {
+        startPos = transform.position;
     }
 
     void Update()
@@ -107,7 +121,10 @@ public class ShapePieces : MonoBehaviour
         {
             SetShapeData();
         }
-
+        if (!IsMaster && !AllowControl && !snugFit)
+        {
+            ShuffleAbout();
+        }
         if (snugFit)
         {
             meshRenderer.material.color = Color.Lerp(meshRenderer.material.color, Color.black, Time.deltaTime);
@@ -330,4 +347,13 @@ public class ShapePieces : MonoBehaviour
         }
     }
 
+    void ShuffleAbout()
+    {
+        sine1 = Mathf.Sin(Time.time * sine1M);
+        sine2 = Mathf.Sin(Time.time * sine2M);
+        sine3 = Mathf.Sin(Time.time * sine3M);
+
+        transform.position = (startPos + new Vector3(sine1 * sine2 * magnitude, sine2 * sine3 * magnitude, 0));
+    }
+    
 }
