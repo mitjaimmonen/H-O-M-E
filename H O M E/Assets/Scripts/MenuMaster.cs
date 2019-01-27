@@ -85,7 +85,7 @@ public class MenuMaster : MonoBehaviour
     {
         if (controllable)
         {
-            Collider2D col = Physics2D.OverlapPoint((Vector2)(cursorObject.transform.position + cursorObject.transform.right*0.5f));
+            Collider2D col = Physics2D.OverlapPoint((Vector2)(cursorObject.transform.position - cursorObject.transform.right*0.5f));
             Debug.Log(col);
             if (col != null)
             {

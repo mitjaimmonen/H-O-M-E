@@ -16,18 +16,9 @@ public class CameraHandler : MonoBehaviour
 
     void Update()
     {
-        if (player.ShapePieces == null || player.ActiveShapePieces.Count < 1)
+        if (player.MasterPiece == null)
             return;
-
-        lookAtPos = Vector2.zero;
-        int index = 0;
-        for(int i = 0; i < player.ActiveShapePieces.Count; i++)
-        {
-            lookAtPos += (Vector2)player.ActiveShapePieces[i].transform.position;
-            Debug.Log(lookAtPos);
-            index++;
-        }
-        lookAtPos /= index;
+        lookAtPos = player.MasterPiece.transform.position;
     }
 
     void LateUpdate()
