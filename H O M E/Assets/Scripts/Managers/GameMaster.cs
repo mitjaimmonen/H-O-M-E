@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     public CameraHandler mainCamera;
+    public PhraseManager phraseManager;
+
     Spawner spawner;
     public Spawner GetSpawner
     {
