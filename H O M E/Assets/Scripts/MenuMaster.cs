@@ -48,7 +48,7 @@ public class MenuMaster : MonoBehaviour
             
             cursorObject.transform.right = -force.normalized;
 
-            cursorObject.transform.position = Vector3.Lerp(cursorObject.transform.position, v3, Time.deltaTime *5f);
+            cursorObject.transform.position += Vector3.ClampMagnitude(Vector3.Lerp(cursorObject.transform.position, v3, Time.deltaTime *5f) - cursorObject.transform.position, 8f*Time.deltaTime);
         }
 
 
