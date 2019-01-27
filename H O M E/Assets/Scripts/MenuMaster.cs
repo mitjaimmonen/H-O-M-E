@@ -87,6 +87,11 @@ public class MenuMaster : MonoBehaviour
         {
             pretentious.speed = 10f;
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SceneManager.LoadScene("Credits");
+        }
     }
     void FixedUpdate()
     {
