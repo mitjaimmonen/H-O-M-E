@@ -58,6 +58,13 @@ public class GameMaster : MonoBehaviour
         return spawner.pieces;
     }
 
+
+    bool g;
+    bool a;
+    bool m;
+    bool e;
+    bool gameOverInAction;
+
     private void Awake()
     {
         // SceneManager.activeSceneChanged += SceneChanged;
@@ -100,6 +107,18 @@ public class GameMaster : MonoBehaviour
         {
             GameOver();
         }
+
+        if (Input.GetKeyDown(KeyCode.G))
+            g = true;
+        if (Input.GetKeyDown(KeyCode.A))
+            a = true;
+        if (Input.GetKeyDown(KeyCode.M))
+            m = true;
+        if (Input.GetKeyDown(KeyCode.E))
+            e = true;
+
+        if (g && a && m && e)
+            GameOver();
     }
 
 
@@ -123,8 +142,12 @@ public class GameMaster : MonoBehaviour
 
     void GameOver()
     {
-        Debug.Log("Game is Over");
-        StartCoroutine(GameOverLoop());
+        if (!gameOverInAction)
+        {
+            gameOverInAction = true;
+            Debug.Log("Game is Over");
+            StartCoroutine(GameOverLoop());
+        }
     }
 
     IEnumerator GameOverLoop()
@@ -134,7 +157,8 @@ public class GameMaster : MonoBehaviour
         float t = 0;
 
         //Call first end text.
-        yield return new WaitForSeconds(1f);
+        GameMaster.Instance.PhraseManager.DisplayEndPhrases();
+        yield return new WaitForSeconds(1.75f);
         //Call second/third end text.
 
         while (t <= 2f)
@@ -148,6 +172,6 @@ public class GameMaster : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         //GOes to credits
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        SceneManager.LoadScene("Credits");
     }
 }
